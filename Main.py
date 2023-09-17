@@ -5,7 +5,7 @@
 import yfinance as yf
 import numpy as np
 import matplotlib.pyplot as plt
-import copy
+from pathlib import Path
 
 # Apple is AAPL
 # Microsoft is MSFT
@@ -30,6 +30,12 @@ def getClosing(ticker):
 
     return closingList
 
+
+# create our charts folder
+try:
+    Path("Charts").mkdir()
+except FileExistsError:
+    pass
 
 stocks = ["MSFT", "AAPL", "GME", "SONY", "META"]
 
