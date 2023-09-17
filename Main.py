@@ -3,26 +3,45 @@
 # Mini Project 1
 
 import yfinance as yf
+import numpy as np
+import matplotlib.pyplot as plt
 import pprint
 
 # Apple is AAPL
 # Microsoft is MSFT
+# Gamestop is GME
+# Sony is SONY
+# Facebook is META
+
 
 def getClosing(ticker):
-    stock = yf.Ticker("ticker")
+    # get the closing price for the last 10 trading days
+    stock = yf.Ticker(ticker)
 
     # get historical market data
     hist = stock.history(period="10d")
 
     # create empty closing list for stock
-    closing_list = []
+    closingList = []
 
     # loop thorough closing prices and add to list
     for price in hist['Close']:
-        closing_list.append(price)
+        closingList.append(round(price, 2))
 
-    return closing_list
+    return closingList
 
-msft = getClosing('MSFT')
 
-print('msft')
+# gets the closing price for Microsoft
+msft = getClosing("MSFT")
+
+
+stocks = ["MSFT", "APPL", "GME", "SONY", "META"]
+
+# creates the array to plot Microsoft prices
+msftClosing = np.array(getClosing("MSFT"))
+
+
+plt.plot(msftClosing)
+plt.xlabel('Days')
+plt.ylabel('Closing Price')
+plt.show()
