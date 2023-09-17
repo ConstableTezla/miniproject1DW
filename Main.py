@@ -32,34 +32,33 @@ def getClosing(ticker):
     return closingList
 
 
-stocks = ["MSFT", "APPL", "GME", "SONY", "META"]
+stocks = ["MSFT", "AAPL", "GME", "SONY", "META"]
 
-# gets the closing price for Microsoft
-msft = getClosing("MSFT")
+for stock in stocks:
 
-# creates the array to plot Microsoft prices
-msftClosing = np.array(getClosing("MSFT"))
+    # creates the array to plot stock prices
+    stockClosing = np.array(getClosing(stock))
 
-# allows the graph to start counting at 1 instead of 0
-days = list(range(1, len(msftClosing)+1))
+    # allows the graph to start counting at 1 instead of 0
+    days = list(range(1, len(stockClosing)+1))
 
-# get our min and max for y
-prices = getClosing("MSFT")
-prices.sort()
-low_price = prices[0]
-high_price = prices[-1]
+    # get our min and max for y
+    prices = getClosing(stock)
+    prices.sort()
+    low_price = prices[0]
+    high_price = prices[-1]
 
-# plots the graph
-plt.plot(days, msftClosing)
+    # plots the graph
+    plt.plot(days, stockClosing)
 
-# set our x axis min and max
-# form (xmin, xmax, ymin, ymax)
-plt.axis([1, 10, low_price-2, high_price+2])
+    # set our x axis min and max
+    # form (xmin, xmax, ymin, ymax)
+    plt.axis([1, 10, low_price-2, high_price+2])
 
-# labels the graph
-plt.xlabel('Days')
-plt.ylabel('Closing Price')
-plt.title('Closing Price for ' + "MSFT")
+    # labels the graph
+    plt.xlabel('Days')
+    plt.ylabel('Closing Price')
+    plt.title('Closing Price for ' + stock)
 
-# prints the graph
-plt.show()
+    # prints the graph
+    plt.show()
