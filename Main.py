@@ -31,21 +31,13 @@ def getClosing(ticker):
     return closingList
 
 
-# create our charts folder
-try:
-    Path("Charts").mkdir()
-except FileExistsError:
-    pass
-
-stocks = ["MSFT", "AAPL", "GME", "SONY", "META"]
-
-for stock in stocks:
+def printGraph(stock):
 
     # creates the array to plot stock prices
     stockClosing = np.array(getClosing(stock))
 
     # allows the graph to start counting at 1 instead of 0
-    days = list(range(1, len(stockClosing)+1))
+    days = list(range(1, len(stockClosing) + 1))
 
     # get our min and max for y
     prices = getClosing(stock)
@@ -58,7 +50,7 @@ for stock in stocks:
 
     # set our x axis min and max
     # form (xmin, xmax, ymin, ymax)
-    plt.axis([1, 10, low_price-2, high_price+2])
+    plt.axis([1, 10, low_price - 2, high_price + 2])
 
     # labels the graph
     plt.xlabel('Days')
@@ -71,3 +63,39 @@ for stock in stocks:
 
     # prints the graph
     plt.show()
+
+
+def getStocks():
+
+    stocks = []
+
+    print("Please enter 5 stocks to graph:")
+    for i in range(1, 6):
+
+        while True:
+            print("Enter stock ticker number " + str(i))
+            ticker = input("> ")
+            try:
+                print("Checking Ticker")
+                stock = yf.Ticker(ticker)
+                stock.info
+                stocks.append(ticker)
+                print("Valid Ticker")
+                break
+            except:
+                print("This is not a valid stock. Please enter another.")
+
+    return stocks
+
+
+# Start of program
+
+# create our charts folder
+try:
+    Path("Charts").mkdir()
+except FileExistsError:
+    pass
+
+for stock in getStocks():
+    getClosing(stock)
+    printGraph(stock)
